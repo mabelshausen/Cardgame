@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CardGame.Lib.Models
 {
-    class Monster
+    class Monster : BaseEntity
     {
         public string Name { get; set; }
         public int Health { get; set; }
