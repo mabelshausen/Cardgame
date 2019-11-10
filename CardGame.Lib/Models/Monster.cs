@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CardGame.Lib.Models
+{
+    class Monster
+    {
+        public string Name { get; set; }
+        public int Health { get; set; }
+        public int DeckId { get; set; }
+        public Deck Deck { get; set; }
+    }
+}
