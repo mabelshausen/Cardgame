@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CardGame.Lib.Models
 {
-    class User : BaseEntity
+    public class User : BaseEntity
     {
         public string Name { get; set; }
         public string Email { get; set; }

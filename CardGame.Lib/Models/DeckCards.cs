@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CardGame.Lib.Models
 {
-    class DeckCards
+    public class DeckCards
     {
         public int DeckId { get; set; }
         public Deck Deck { get; set; }
