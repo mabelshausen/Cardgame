@@ -78,7 +78,7 @@ namespace CardGame.WebAPI.Data
                 .ValueGeneratedOnAdd();
 
 
-            DataSeeder.Seed(modelbuilder);
+            DataSeeder.Seed(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
         }
