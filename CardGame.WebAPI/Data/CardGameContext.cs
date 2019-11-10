@@ -52,6 +52,32 @@ namespace CardGame.WebAPI.Data
                 .HasDefaultValueSql("GETDATE()")
                 .ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<User>()
+                .Property(u => u.IsDeleted)
+                .HasDefaultValue(false)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Deck>()
+                .Property(d => d.IsDeleted)
+                .HasDefaultValue(false)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Monster>()
+                .Property(m => m.IsDeleted)
+                .HasDefaultValue(false)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Card>()
+                .Property(c => c.IsDeleted)
+                .HasDefaultValue(false)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Effect>()
+                .Property(e => e.IsDeleted)
+                .HasDefaultValue(false)
+                .ValueGeneratedOnAdd();
+
+
             // DataSeeder.Seed(modelbuilder);
 
             base.OnModelCreating(modelBuilder);

@@ -28,5 +28,7 @@ namespace CardGame.Lib.Models
                 }
             }
         }
+
+        public bool IsDeleted { get; set; }
     }
 }
