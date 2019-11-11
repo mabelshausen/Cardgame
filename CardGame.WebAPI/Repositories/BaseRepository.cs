@@ -19,9 +19,7 @@ namespace CardGame.WebAPI.Repositories
 
         public virtual async Task<T> GetById(int id)
         {
-            var entity = await _cardGameContext.Set<T>().FindAsync(id);
-            if (entity != null && entity.IsDeleted) return null;
-            else return entity;
+            return await _cardGameContext.Set<T>().FirstOrDefaultAsync(e => e.Id == id && !e.IsDeleted);
         }
 
         public IQueryable<T> GetAll()
