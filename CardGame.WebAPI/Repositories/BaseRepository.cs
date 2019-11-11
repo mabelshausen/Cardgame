@@ -27,7 +27,7 @@ namespace CardGame.WebAPI.Repositories
             return _cardGameContext.Set<T>().Where(e => !e.IsDeleted).AsNoTracking();
         }
 
-        public async Task<IEnumerable<T>> ListAll()
+        public virtual async Task<IEnumerable<T>> ListAll()
         {
             return await GetAll().ToListAsync();
         }
