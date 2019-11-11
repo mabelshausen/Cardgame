@@ -20,7 +20,7 @@ namespace CardGame.WebAPI.Repositories
         public virtual async Task<T> GetById(int id)
         {
             var entity = await _cardGameContext.Set<T>().FindAsync(id);
-            if (entity.IsDeleted) return null;
+            if (entity != null && entity.IsDeleted) return null;
             else return entity;
         }
 
