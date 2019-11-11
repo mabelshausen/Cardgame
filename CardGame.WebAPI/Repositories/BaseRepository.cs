@@ -1,5 +1,6 @@
 ﻿using CardGame.Lib.Models;
 using CardGame.WebAPI.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,39 +17,63 @@ namespace CardGame.WebAPI.Repositories
             _cardGameContext = cardGameContext;
         }
 
-        public Task<T> GetById(int id)
+        public virtual async Task<T> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _cardGameContext.Set<T>().FindAsync(id);
         }
 
         public IQueryable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _cardGameContext.Set<T>().Where(e => !e.IsDeleted).AsNoTracking();
         }
 
-        public Task<IEnumerable<T>> ListAll()
+        public async Task<IEnumerable<T>> ListAll()
         {
-            throw new NotImplementedException();
+            return await GetAll().ToListAsync();
         }
 
-        public Task<T> Add(T entity)
+        public async Task<T> Add(T entity)
         {
-            throw new NotImplementedException();
+            _cardGameContext.Set<T>().Add(entity);
+            try
+            {
+                await _cardGameContext.SaveChangesAsync();
+            }
+            catch
+            {
+                return null;
+            }
+            return entity;
         }
 
-        public Task<T> Delete(T entity)
+        public async Task<T> Delete(T entity)
         {
-            throw new NotImplementedException();
+            entity.IsDeleted = true;
+            return await Update(entity);
         }
 
-        public Task<T> Delete(int id)
+        public async Task<T> Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = await GetById(id);
+            if (entity == null)
+            {
+                return null;
+            }
+            return await Delete(entity);
         }
 
-        public Task<T> Update(T entity)
+        public async Task<T> Update(T entity)
         {
-            throw new NotImplementedException();
+            _cardGameContext.Entry(entity).State = EntityState.Modified;
+            try
+            {
+                await _cardGameContext.SaveChangesAsync();
+            }
+            catch
+            {
+                return null;
+            }
+            return entity;
         }
     }
 }
