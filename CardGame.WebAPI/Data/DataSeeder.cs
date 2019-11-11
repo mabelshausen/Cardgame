@@ -78,31 +78,31 @@ namespace CardGame.WebAPI.Data
             modelBuilder.Entity<Effect>().HasData(
                 new { 
                     Id = 1, 
-                    Name = "WeakEffect1", 
+                    Code = "WeakEffect1", 
                     CardId = 1, 
                     Power = 1, 
                     Chance = 0.5m }, 
                 new { 
                     Id = 2, 
-                    Name = "WeakEffect2", 
+                    Code = "WeakEffect2", 
                     CardId = 2, 
                     Power = 0, 
                     Chance = 1 },
                 new { 
                     Id = 3, 
-                    Name = "StrongEffect1", 
+                    Code = "StrongEffect1", 
                     CardId = 3, 
                     Power = 20, 
                     Chance = 1 }, 
                 new { 
                     Id = 4, 
-                    Name = "StrongEffect2", 
+                    Code = "StrongEffect2", 
                     CardId = 4, 
                     Power = 30, 
                     Chance = 0.8m },
                 new { 
                     Id = 5, 
-                    Name = "StrongEffect3", 
+                    Code = "StrongEffect3", 
                     CardId = 4, 
                     Power = 0, 
                     Chance = 1});
