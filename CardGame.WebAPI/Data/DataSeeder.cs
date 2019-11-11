@@ -26,32 +26,32 @@ namespace CardGame.WebAPI.Data
                     IsAdmin = true});
 
             modelBuilder.Entity<Deck>().HasData(
-                new Deck { 
+                new { 
                     Id = 1, 
                     Name = "WeakMonsterDeck" },
-                new Deck { 
+                new { 
                     Id = 2, 
                     Name = "StrongMonsterDeck" },
-                new Deck { 
+                new { 
                     Id = 3, 
                     Name = "UserDeck1", 
                     UserId = 1 },
-                new Deck { 
+                new { 
                     Id = 4, 
                     Name = "UserDeck2", 
                     UserId = 1 },
-                new Deck { 
+                new { 
                     Id = 5, 
                     Name = "UserDeck3", 
                     UserId = 2 });
 
             modelBuilder.Entity<Monster>().HasData(
-                new Monster { 
+                new { 
                     Id = 1, 
                     Name = "WeakMonster", 
                     Health = 10, 
                     DeckId = 1},
-                new Monster { 
+                new { 
                     Id = 2, 
                     Name = "StrongMonster", 
                     Health = 2000, 
@@ -76,31 +76,31 @@ namespace CardGame.WebAPI.Data
                     Description = "This is also a strong card." });
 
             modelBuilder.Entity<Effect>().HasData(
-                new Effect { 
+                new { 
                     Id = 1, 
                     Name = "WeakEffect1", 
                     CardId = 1, 
                     Power = 1, 
                     Chance = 0.5m }, 
-                new Effect { 
+                new { 
                     Id = 2, 
                     Name = "WeakEffect2", 
                     CardId = 2, 
                     Power = 0, 
                     Chance = 1 },
-                new Effect { 
+                new { 
                     Id = 3, 
                     Name = "StrongEffect1", 
                     CardId = 3, 
                     Power = 20, 
                     Chance = 1 }, 
-                new Effect { 
+                new { 
                     Id = 4, 
                     Name = "StrongEffect2", 
                     CardId = 4, 
                     Power = 30, 
                     Chance = 0.8m },
-                new Effect { 
+                new { 
                     Id = 5, 
                     Name = "StrongEffect3", 
                     CardId = 4, 
@@ -108,15 +108,15 @@ namespace CardGame.WebAPI.Data
                     Chance = 1});
 
             modelBuilder.Entity<DeckCards>().HasData(
-                new DeckCards { DeckId = 1, CardId = 1, AmountOfCopies = 3 },
-                new DeckCards { DeckId = 1, CardId = 2, AmountOfCopies = 3 },
-                new DeckCards { DeckId = 2, CardId = 3, AmountOfCopies = 3 },
-                new DeckCards { DeckId = 2, CardId = 4, AmountOfCopies = 3 },
-                new DeckCards { DeckId = 3, CardId = 1, AmountOfCopies = 2 },
-                new DeckCards { DeckId = 3, CardId = 4, AmountOfCopies = 1 },
-                new DeckCards { DeckId = 4, CardId = 2, AmountOfCopies = 3 },
-                new DeckCards { DeckId = 4, CardId = 3, AmountOfCopies = 2 },
-                new DeckCards { DeckId = 5, CardId = 4, AmountOfCopies = 1 });
+                new { DeckId = 1, CardId = 1, AmountOfCopies = 3 },
+                new { DeckId = 1, CardId = 2, AmountOfCopies = 3 },
+                new { DeckId = 2, CardId = 3, AmountOfCopies = 3 },
+                new { DeckId = 2, CardId = 4, AmountOfCopies = 3 },
+                new { DeckId = 3, CardId = 1, AmountOfCopies = 2 },
+                new { DeckId = 3, CardId = 4, AmountOfCopies = 1 },
+                new { DeckId = 4, CardId = 2, AmountOfCopies = 3 },
+                new { DeckId = 4, CardId = 3, AmountOfCopies = 2 },
+                new { DeckId = 5, CardId = 4, AmountOfCopies = 1 });
         }
     }
 }
