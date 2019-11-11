@@ -87,13 +87,13 @@ namespace CardGame.WebAPI.Data
                     Code = "WeakEffect2", 
                     CardId = 2, 
                     Power = 0, 
-                    Chance = 1 },
+                    Chance = 1m },
                 new { 
                     Id = 3, 
                     Code = "StrongEffect1", 
                     CardId = 3, 
                     Power = 20, 
-                    Chance = 1 }, 
+                    Chance = 1m }, 
                 new { 
                     Id = 4, 
                     Code = "StrongEffect2", 
@@ -105,7 +105,7 @@ namespace CardGame.WebAPI.Data
                     Code = "StrongEffect3", 
                     CardId = 4, 
                     Power = 0, 
-                    Chance = 1});
+                    Chance = 1m });
 
             modelBuilder.Entity<DeckCards>().HasData(
                 new { DeckId = 1, CardId = 1, AmountOfCopies = 3 },
