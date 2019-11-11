@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CardGame.WebAPI.Data;
+using CardGame.WebAPI.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +30,10 @@ namespace CardGame.WebAPI
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<CardGameContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CardGame")));
+            services.AddScoped<DeckRepository>();
+            services.AddScoped<CardRepository>();
+            services.AddScoped<MonsterRepository>();
+            services.AddScoped<EffectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
