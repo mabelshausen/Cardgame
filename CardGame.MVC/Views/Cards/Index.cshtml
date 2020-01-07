@@ -1,7 +1,89 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cards";
 }
 
-<h1>Cards</h1>
+<article id="app" class="row">
+    <header class="col-md-4">
+        <h3>{{message}}</h3>
+        <nav>
+            <ul class="list-group">
+                <li v-for="card in cards" v-on:click="fetchCardDetails(card)" :class="getCardClass(card)" style="cursor:pointer">
+                    <span>{{card.name}}</span>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div v-if="currentCard" class="col-md-8">
+        <h3>Details</h3>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" :value="currentCard.name" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Description</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" :value="currentCard.description" readonly>
+                </div>
+            </div>
+        </form>
+    </div>
+</article>
 
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var ApiUri = "https://localhost:5001/api/cards/";
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: "Please wait a moment.",
+                cards: null,
+                currentCard: null
+            },
+            created: function () {
+                var self = this;
+                self.fetchCards();
+            },
+            methods: {
+                fetchCards: function () {
+                    self = this;
+                    fetch(`${ApiUri}`)
+                        .then(res => res.json())
+                        .then(function (res) {
+                            res.forEach(function (card) {
+                                card.isActive = false;
+                            });
+                            self.cards = res;
+                            self.message = "Cards";
+                            if (self.cards.length > 0) {
+                                self.fetchCardDetails(self.cards[0]);
+                            }
+                        })
+                        .catch(err => console.error("There was an error: " + err));
+                },
+                fetchCardDetails: function (card) {
+                    self = this;
+                    fetch(`${ApiUri}${card.id}`)
+                        .then(res => res.json())
+                        .then(function (res) {
+                            self.currentCard = res;
+                            self.cards.forEach(function (card2) {
+                                card2.isActive = false;
+                            });
+                            card.isActive = true;
+                        });
+                },
+                getCardClass: function (card) {
+                    if (card.isActive)
+                        return "list-group-item active";
+                    return "list-group-item";
+                }
+            }
+        });
+    </script>
+}
