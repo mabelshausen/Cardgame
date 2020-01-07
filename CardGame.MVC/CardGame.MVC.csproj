@@ -11,4 +11,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\CardGame.Lib\CardGame.Lib.csproj" />
+    <ProjectReference Include="..\CardGame.WebAPI\CardGame.WebAPI.csproj" />
+  </ItemGroup>
+
 </Project>
