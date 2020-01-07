@@ -4,14 +4,16 @@ using CardGame.WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CardGame.WebAPI.Migrations
 {
     [DbContext(typeof(CardGameContext))]
-    partial class CardGameContextModelSnapshot : ModelSnapshot
+    [Migration("20200107131420_HashPasswords")]
+    partial class HashPasswords
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +47,7 @@ namespace CardGame.WebAPI.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 129, DateTimeKind.Local).AddTicks(4222),
+                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 127, DateTimeKind.Local).AddTicks(4692),
                             Description = "This is a weak card.",
                             IsDeleted = false,
                             Name = "WeakCard1"
@@ -53,7 +55,7 @@ namespace CardGame.WebAPI.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 129, DateTimeKind.Local).AddTicks(4331),
+                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 127, DateTimeKind.Local).AddTicks(4831),
                             Description = "This is also a weak card.",
                             IsDeleted = false,
                             Name = "WeakCard2"
@@ -61,7 +63,7 @@ namespace CardGame.WebAPI.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 129, DateTimeKind.Local).AddTicks(4420),
+                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 127, DateTimeKind.Local).AddTicks(4923),
                             Description = "This is a strong card.",
                             IsDeleted = false,
                             Name = "StrongCard1"
@@ -69,7 +71,7 @@ namespace CardGame.WebAPI.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 129, DateTimeKind.Local).AddTicks(4544),
+                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 127, DateTimeKind.Local).AddTicks(5011),
                             Description = "This is also a strong card.",
                             IsDeleted = false,
                             Name = "StrongCard2"
@@ -346,7 +348,7 @@ namespace CardGame.WebAPI.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 130, DateTimeKind.Local).AddTicks(1330),
+                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 128, DateTimeKind.Local).AddTicks(6995),
                             Email = "regularuser@example.test",
                             IsAdmin = false,
                             IsDeleted = false,
@@ -356,7 +358,7 @@ namespace CardGame.WebAPI.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 130, DateTimeKind.Local).AddTicks(1438),
+                            CreatedDateTime = new DateTime(2020, 1, 7, 14, 14, 20, 128, DateTimeKind.Local).AddTicks(7186),
                             Email = "admin@example.test",
                             IsAdmin = true,
                             IsDeleted = false,

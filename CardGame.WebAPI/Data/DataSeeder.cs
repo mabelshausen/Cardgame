@@ -1,4 +1,5 @@
 ﻿using CardGame.Lib.Models;
+using CardGame.Lib.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,13 @@ namespace CardGame.WebAPI.Data
                     Id = 1, 
                     Name = "RegularUser", 
                     Email = "regularuser@example.test", 
-                    Password = "password", 
+                    Password = PasswordHasher.HashPassword("password"), 
                     IsAdmin = false},
                 new User { 
                     Id = 2, 
                     Name = "Admin", 
                     Email = "admin@example.test", 
-                    Password = "password", 
+                    Password = PasswordHasher.HashPassword("password"), 
                     IsAdmin = true});
 
             modelBuilder.Entity<Deck>().HasData(
