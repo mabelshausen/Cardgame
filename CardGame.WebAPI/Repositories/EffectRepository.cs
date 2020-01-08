@@ -1,5 +1,6 @@
 ﻿using CardGame.Lib.Models;
 using CardGame.WebAPI.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
