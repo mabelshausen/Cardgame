@@ -7,7 +7,8 @@ var app = new Vue({
         cards: null,
         currentCard: null,
         isReadOnly: true,
-        isEdit: false
+        isEdit: false,
+        effectsUrl: ""
     },
     created: function () {
         var self = this;
@@ -41,6 +42,7 @@ var app = new Vue({
                         card2.isActive = false;
                     });
                     card.isActive = true;
+                    self.effectsUrl = `/Effects/Index/${card.id}`;
                 });
         },
         getCardClass: function (card) {
