@@ -20,18 +20,20 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label small">Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" :value="currentCard.name" :readonly="isReadOnly">
+                    <input type="text" class="form-control" v-model="currentCard.name" :readonly="isReadOnly">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label small">Description</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" :value="currentCard.description" :readonly="isReadOnly">
+                    <input type="text" class="form-control" v-model="currentCard.description" :readonly="isReadOnly">
                 </div>
             </div>
-            <button v-on:click="toEditMode(true)" v-if="isReadOnly" class="btn btn-primary">Edit</button>
-            <button v-on:click="toEditMode(false)" v-if="isReadOnly" class="btn btn-warning">New</button>
         </form>
+        <button v-on:click="toEditMode(true)" v-if="isReadOnly" class="btn btn-primary">Edit</button>
+        <button v-on:click="toEditMode(false)" v-if="isReadOnly" class="btn btn-warning">New</button>
+        <button v-on:click="save" v-if="!isReadOnly" class="btn btn-primary">Save</button>
+        <button v-on:click="cancel" v-if="!isReadOnly" class="btn btn-default">Cancel</button>
         <h3>Effects</h3>
         <div class="container">
             <ul class="list-group">
@@ -101,7 +103,60 @@
                     self.isReadOnly = false;
                     self.isEdit = isEdit;
                     if (!isEdit) {
-                        self.currentCard = { "name" : "", "description" : "", "deckCards" : null, "effects" : null };
+                        self.currentCard = { "name": "", "description": "", "deckCards": null, "effects": null };
+                    }
+                },
+                save: function () {
+                    var self = this;
+
+                    var ajaxHeaders = new Headers();
+                    ajaxHeaders.append("Content-Type", "application/json");
+                    var ajaxConfig = {
+                        method: "PUT",
+                        body: JSON.stringify(self.currentCard),
+                        headers: ajaxHeaders
+                    };
+
+                    if (self.isEdit) {
+                        let myRequest = new Request(`${ApiUri}${self.currentCard.id}`, ajaxConfig);
+                        fetch(myRequest)
+                            .then(res => res.json())
+                            .then(res => {
+                                self.updateCardList(res);
+                            })
+                            .catch(err => console.error("There was an error: " + err));
+                    }
+                    else {
+                        ajaxConfig.method = "POST";
+                        let myRequest = new Request(`${ApiUri}`, ajaxConfig);
+                        fetch(myRequest)
+                            .then(res => res.json())
+                            .then(res => {
+                                self.addCardToList(res);
+                            })
+                            .catch(err => console.error("There was an error: " + err));
+                    }
+                    self.isEdit = false;
+                    self.isReadOnly = true;
+                },
+                addCardToList: function (card) {
+
+                    self.currentCard.id = card.id;
+                    self.cards.push(card);
+                    self.fetchCardDetails(self.cards[self.cards.length - 1]);
+                },
+                updateCardList: function (card) {
+                    var updatedCard = self.cards.filter(c => c.id === card.id)[0];
+                    updatedCard.name = card.name;
+                },
+                cancel: function () {
+                    var self = this;
+                    self.isReadOnly = true;
+                    self.isEdit = false;
+                    if (self.isEdit) {
+                        self.fetchCardDetails(self.currentCard);
+                    } else {
+                        self.fetchCardDetails(self.cards[0]);
                     }
                 }
             }
