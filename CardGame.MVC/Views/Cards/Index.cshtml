@@ -32,6 +32,7 @@
         </form>
         <button v-on:click="toEditMode(true)" v-if="isReadOnly" class="btn btn-primary">Edit</button>
         <button v-on:click="toEditMode(false)" v-if="isReadOnly" class="btn btn-warning">New</button>
+        <button v-on:click="deleteCard()" v-if="isReadOnly" class="btn btn-danger">Delete</button>
         <button v-on:click="save" v-if="!isReadOnly" class="btn btn-primary">Save</button>
         <button v-on:click="cancel" v-if="!isReadOnly" class="btn btn-default">Cancel</button>
         <h3>Effects</h3>
@@ -158,6 +159,22 @@
                     } else {
                         self.fetchCardDetails(self.cards[0]);
                     }
+                },
+                deleteCard: function () {
+                    self = this;
+                    fetch(`${ApiUri}${self.currentCard.id}`, { method: "DELETE" })
+                        .then(res => res.json())
+                        .then(function (res) {
+                            self.cards.forEach(function (card, i) {
+                                if (card.id === self.currentCard.id) {
+                                    self.cards.splice(i, 1);
+                                    return;
+                                }
+                            });
+                            if (self.cards.length > 0)
+                                self.fetchCardDetails(self.cards[0]);
+                        })
+                        .catch(err => console.error("There was an error: " + err));
                 }
             }
         });
