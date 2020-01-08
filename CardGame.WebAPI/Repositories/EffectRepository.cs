@@ -12,5 +12,12 @@ namespace CardGame.WebAPI.Repositories
         public EffectRepository(CardGameContext cardGameContext) : base(cardGameContext)
         {
         }
+
+        public IQueryable<Effect> GetAllByCardId(int id)
+        {
+            return _cardGameContext.Set<Effect>()
+                .Where(e => !e.IsDeleted && e.CardId == id)
+                .AsNoTracking();
+        }
     }
 }

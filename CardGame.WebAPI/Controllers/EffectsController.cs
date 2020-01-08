@@ -6,6 +6,7 @@ using CardGame.Lib.Models;
 using CardGame.WebAPI.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CardGame.WebAPI.Controllers
 {
@@ -15,6 +16,13 @@ namespace CardGame.WebAPI.Controllers
     {
         public EffectsController(EffectRepository effectRepository) : base(effectRepository)
         {
+        }
+
+        [HttpGet]
+        [Route("ByCardId/{id}")]
+        public async Task<IActionResult> GetByCardId(int id)
+        {
+            return Ok(await _repository.GetAllByCardId(id).ToListAsync());
         }
     }
 }
