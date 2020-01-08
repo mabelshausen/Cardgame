@@ -1,7 +1,53 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Monsters";
 }
 
-<h1>Index</h1>
+<article id="app" class="row">
+    <header class="col-md-4">
+        <h3>{{message}}</h3>
+        <nav>
+            <ul class="list-group">
+                <li v-for="monster in monsters" v-on:click="fetchMonsterDetails(monster)" :class="getMonsterClass(monster)" style="cursor:pointer">
+                    <span>{{monster.name}}</span>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div v-if="currentMonster" class="col-md-8">
+        <h3>Details</h3>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="currentMonster.name" :readonly="isReadOnly">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Health</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="currentMonster.health" :readonly="isReadOnly">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label small">Deck</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="currentMonster.deck.name" v-if="isReadOnly" :readonly="isReadOnly">
+                    <select v-model="currentMonster.deckId" class="form-control" v-if="!isReadOnly">
+                        <option v-for="deck in decks" :value="deck.id">{{ deck.name }}</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <button v-on:click="toEditMode(true)" v-if="isReadOnly" class="btn btn-primary">Edit</button>
+        <button v-on:click="toEditMode(false)" v-if="isReadOnly" class="btn btn-warning">New</button>
+        <button v-on:click="deleteMonster()" v-if="isReadOnly" class="btn btn-danger">Delete</button>
+        <button v-on:click="save" v-if="!isReadOnly" class="btn btn-primary">Save</button>
+        <button v-on:click="cancel" v-if="!isReadOnly" class="btn btn-default">Cancel</button>
+    </div>
+</article>
 
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="~/js/monsters.js"></script>
+}
