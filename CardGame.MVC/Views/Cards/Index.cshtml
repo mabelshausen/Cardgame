@@ -38,7 +38,7 @@
         <h3>Effects</h3>
         <div class="container">
             <ul class="list-group">
-                <li v-for="effect in currentCard.effects" class="list-group-item">
+                <li v-for="effect in currentCard.effects" v-if="!effect.isDeleted" class="list-group-item">
                     <span>{{effect.code}}, {{effect.power}} Power, {{effect.chance}} Chance</span>
                 </li>
             </ul>
