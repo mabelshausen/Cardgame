@@ -13,11 +13,27 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+    @{
+        var statekey = Context.Session.GetString(UserStateConstants.UserStateSessionKey);
+
+        if (statekey == null)
+        {
+            var userState = new UserState
+            {
+                IsLoggedIn = false
+            };
+            statekey = JsonConvert.SerializeObject(userState);
+            Context.Session.SetString(UserStateConstants.UserStateSessionKey, statekey);
+        }
+
+        var userstate = JsonConvert.DeserializeObject<UserState>(statekey);
+    }
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -26,6 +42,17 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                @if (userstate.IsLoggedIn)
+                {
+                    <div>
+                        Welcome, @(userstate.Name).
+                        <a asp-controller="Users" asp-action="Logout" class="btn btn-secondary">Logout</a>
+                    </div>
+                }
+                else
+                {
+                    <a asp-controller="Users" asp-action="Login" class="btn btn-secondary">Login</a>
+                }
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
