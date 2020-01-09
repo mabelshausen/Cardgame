@@ -31,6 +31,13 @@ namespace CardGame.MVC
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddSession(
+                options =>
+                {
+                    options.Cookie.IsEssential = true;
+                    options.IdleTimeout = TimeSpan.FromMinutes(60);
+                    options.Cookie.HttpOnly = true;
+                });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -52,6 +59,7 @@ namespace CardGame.MVC
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
