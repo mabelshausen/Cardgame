@@ -16,5 +16,17 @@ namespace CardGame.WebAPI.Controllers
         public UsersController(UserRepository repository) : base(repository)
         {
         }
+
+        [HttpGet]
+        public override async Task<IActionResult> Get()
+        {
+            return Ok(await _repository.ListAllDetail());
+        }
+
+        [HttpGet("{id}")]
+        public override async Task<IActionResult> Get(int id)
+        {
+            return Ok(await _repository.GetDetailById(id));
+        }
     }
 }
