@@ -9,9 +9,10 @@ namespace CardGame.MVC.ViewModels
 {
     public class LoginViewModel
     {
-        [Display(Name = FormConstants.NameDisplay)]
-        [Required(ErrorMessage = FormConstants.NameRequired)]
-        public string Name { get; set; }
+        [Display(Name = FormConstants.EmailDisplay)]
+        [Required(ErrorMessage = FormConstants.EmailRequired)]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
 
         [Display(Name = FormConstants.PasswordDisplay)]
         [Required(ErrorMessage = FormConstants.PasswordRequired)]
