@@ -65,6 +65,18 @@ namespace CardGame.MVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult Logout()
+        {
+            _userStateService.UserState = new UserState
+            {
+                IsLoggedIn = false,
+                IsAdmin = false
+            };
+            _userStateService.SaveUserState();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult Register()
         {
             return View(new RegisterViewModel());
