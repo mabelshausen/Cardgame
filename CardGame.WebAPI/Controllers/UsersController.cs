@@ -28,5 +28,11 @@ namespace CardGame.WebAPI.Controllers
         {
             return Ok(await _repository.GetDetailById(id));
         }
+
+        [HttpGet("{email}, {password}")]
+        public async Task<IActionResult> ValidatePassword(string email, string password)
+        {
+            return Ok(await _repository.ValidatePassword(email, password));
+        }
     }
 }

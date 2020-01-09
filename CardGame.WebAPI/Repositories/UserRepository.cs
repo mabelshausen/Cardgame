@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using CardGame.Lib.Dto;
 using CardGame.Lib.Models;
+using CardGame.Lib.Services;
 using CardGame.WebAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,6 +29,15 @@ namespace CardGame.WebAPI.Repositories
             return await GetAll()
                 .ProjectTo<UserDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+        }
+
+        public async Task<bool> ValidatePassword(string email, string password)
+        {
+            var user = await GetAll().FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user is null) return false;
+
+            return PasswordHasher.ComparePasswords(user.Password, password);
         }
     }
 }
