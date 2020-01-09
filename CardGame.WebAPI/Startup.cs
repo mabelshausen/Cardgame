@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CardGame.WebAPI.Data;
 using CardGame.WebAPI.Repositories;
+using CardGame.WebAPI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,14 @@ namespace CardGame.WebAPI
             services.AddScoped<CardRepository>();
             services.AddScoped<MonsterRepository>();
             services.AddScoped<EffectRepository>();
+
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperProfileConfiguration());
+            });
+
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddCors();
         }
