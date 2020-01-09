@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CardGame.MVC.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,6 +39,9 @@ namespace CardGame.MVC
                     options.IdleTimeout = TimeSpan.FromMinutes(60);
                     options.Cookie.HttpOnly = true;
                 });
+
+            services.AddHttpContextAccessor();
+            services.AddTransient<UserStateService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
