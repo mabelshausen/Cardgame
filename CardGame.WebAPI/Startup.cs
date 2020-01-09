@@ -35,6 +35,7 @@ namespace CardGame.WebAPI
             services.AddScoped<CardRepository>();
             services.AddScoped<MonsterRepository>();
             services.AddScoped<EffectRepository>();
+            services.AddScoped<UserRepository>();
 
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
