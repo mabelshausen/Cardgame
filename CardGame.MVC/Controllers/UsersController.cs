@@ -27,6 +27,44 @@ namespace CardGame.MVC.Controllers
             return View(new LoginViewModel());
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (_userStateService.UserState.IsLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var passwordValid = WebApiService.GetApiResult<bool>($"{_baseUri}{model.Email}/{model.Password}");
+
+            if (!passwordValid)
+            {
+                ModelState.AddModelError("Password", FormConstants.PasswordValid);
+                return View(model);
+            }
+
+            var user = WebApiService.GetApiResult<IEnumerable<UserDto>>(_baseUri)
+                .Where(u => u.Email == model.Email)
+                .FirstOrDefault();
+
+            _userStateService.UserState = new UserState
+            {
+                Name = user.Name,
+                Id = user.Id,
+                IsLoggedIn = true,
+                IsAdmin = user.IsAdmin
+            };
+            _userStateService.SaveUserState();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult Register()
         {
             return View(new RegisterViewModel());
