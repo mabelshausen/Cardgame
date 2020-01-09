@@ -14,6 +14,10 @@ namespace CardGame.MVC.ViewModels
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        [Display(Name = FormConstants.NameDisplay)]
+        [Required(ErrorMessage = FormConstants.NameRequired)]
+        public string Name { get; set; }
+
         [Display(Name = FormConstants.PasswordDisplay)]
         [Required(ErrorMessage = FormConstants.PasswordRequired)]
         [DataType(DataType.Password)]

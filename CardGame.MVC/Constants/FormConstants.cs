@@ -10,6 +10,9 @@ namespace CardGame.MVC.Constants
         public const string EmailDisplay = "Email";
         public const string EmailRequired = "Email is required.";
 
+        public const string NameDisplay = "Username";
+        public const string NameRequired = "Username is required.";
+
         public const string PasswordDisplay = "Password";
         public const string PasswordRequired = "Password is required.";
         public const string PasswordValid = "Password is invalid.";
