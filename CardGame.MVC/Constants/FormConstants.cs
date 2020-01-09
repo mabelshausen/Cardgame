@@ -12,6 +12,7 @@ namespace CardGame.MVC.Constants
 
         public const string PasswordDisplay = "Password";
         public const string PasswordRequired = "Password is required.";
+        public const string PasswordValid = "Password is invalid.";
 
         public const string RepeatPasswordDisplay = "Repeat Password";
         public const string RepeatPasswordRequired = "Repeated Password is required.";
