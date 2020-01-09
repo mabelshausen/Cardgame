@@ -42,17 +42,6 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @if (userstate.IsLoggedIn)
-                {
-                    <div>
-                        Welcome, @(userstate.Name).
-                        <a asp-controller="Users" asp-action="Logout" class="btn btn-secondary">Logout</a>
-                    </div>
-                }
-                else
-                {
-                    <a asp-controller="Users" asp-action="Login" class="btn btn-secondary">Login</a>
-                }
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -66,6 +55,17 @@
                         </li>
                     </ul>
                 </div>
+                @if (userstate.IsLoggedIn)
+                {
+                    <div class="text-right">
+                        Welcome, @(userstate.Name).
+                        <a asp-controller="Users" asp-action="Logout" class="btn btn-secondary text-right">Logout</a>
+                    </div>
+                }
+                else
+                {
+                    <a asp-controller="Users" asp-action="Login" class="btn btn-secondary">Login</a>
+                }
             </div>
         </nav>
     </header>
