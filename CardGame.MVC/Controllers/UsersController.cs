@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CardGame.MVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CardGame.MVC.Controllers
@@ -10,12 +11,12 @@ namespace CardGame.MVC.Controllers
     {
         public IActionResult Login()
         {
-            return View();
+            return View(new LoginViewModel());
         }
 
         public IActionResult Register()
         {
-            return View();
+            return View(new LoginViewModel());
         }
     }
 }
