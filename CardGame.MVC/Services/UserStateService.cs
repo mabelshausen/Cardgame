@@ -16,6 +16,7 @@ namespace CardGame.MVC.Services
         public UserStateService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
+            LoadUserState();
         }
 
         public UserState UserState { get; set; }
