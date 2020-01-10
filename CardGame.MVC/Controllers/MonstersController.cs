@@ -18,6 +18,11 @@ namespace CardGame.MVC.Controllers
 
         public IActionResult Index()
         {
+            if (!_userStateService.UserState.IsAdmin)
+            {
+                return NotFound();
+            }
+
             return View();
         }
     }
