@@ -20,5 +20,13 @@ namespace CardGame.WebAPI.Repositories
                 .Where(d => !d.IsDeleted && d.UserId == id)
                 .AsNoTracking();
         }
+
+        public async Task<Deck> GetByIdWithCards(int id)
+        {
+            return await _cardGameContext.Set<Deck>()
+                .Include(d => d.DeckCards)
+                .ThenInclude(dc => dc.Card)
+                .FirstOrDefaultAsync(e => e.Id == id && !e.IsDeleted);
+        }
     }
 }

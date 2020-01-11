@@ -24,5 +24,12 @@ namespace CardGame.WebAPI.Controllers
         {
             return Ok(await _repository.GetAllByUserId(id).ToListAsync());
         }
+
+        [HttpGet]
+        [Route("WithCards/{id}")]
+        public async Task<IActionResult> GetWithCards(int id)
+        {
+            return Ok(await _repository.GetByIdWithCards(id));
+        }
     }
 }
