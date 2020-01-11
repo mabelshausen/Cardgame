@@ -1,5 +1,6 @@
 ﻿using CardGame.Lib.Models;
 using CardGame.WebAPI.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,13 @@ namespace CardGame.WebAPI.Repositories
     {
         public DeckRepository(CardGameContext cardGameContext) : base(cardGameContext)
         {
+        }
+
+        public IQueryable<Deck> GetAllByUserId(int id)
+        {
+            return _cardGameContext.Set<Deck>()
+                .Where(d => !d.IsDeleted && d.UserId == id)
+                .AsNoTracking();
         }
     }
 }
