@@ -13,7 +13,8 @@ var app = new Vue({
         decks: null,
         currentDeck: null,
         isReadOnly: true,
-        isEdit: false
+        isEdit: false,
+        builderUrl: ""
     },
     created: function () {
         var self = this;
@@ -52,6 +53,7 @@ var app = new Vue({
                         deck2.isActive = false;
                     });
                     deck.isActive = true;
+                    self.builderUrl = `/Decks/Builder/${deck.id}`;
                 });
         },
         getDeckClass: function (deck) {

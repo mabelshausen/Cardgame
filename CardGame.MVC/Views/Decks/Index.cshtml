@@ -29,6 +29,8 @@
         <button v-on:click="deleteDeck()" v-if="isReadOnly" class="btn btn-danger">Delete</button>
         <button v-on:click="save" v-if="!isReadOnly" class="btn btn-primary">Save</button>
         <button v-on:click="cancel" v-if="!isReadOnly" class="btn btn-default">Cancel</button>
+
+        <a :href="builderUrl" class="btn btn-primary">To Deckbuilder</a>
     </div>
 </article>
 
