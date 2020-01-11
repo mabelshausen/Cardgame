@@ -17,7 +17,8 @@ var app = new Vue({
         selectedDeckCard: null,
         selectedCard: null,
         deckCardSelected: false,
-        cardSelected: false
+        cardSelected: false,
+        isEdited: false
     },
     created: function () {
         var self = this;
