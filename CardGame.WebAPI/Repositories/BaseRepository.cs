@@ -62,7 +62,7 @@ namespace CardGame.WebAPI.Repositories
             return await Delete(entity);
         }
 
-        public async Task<T> Update(T entity)
+        public virtual async Task<T> Update(T entity)
         {
             _cardGameContext.Entry(entity).State = EntityState.Modified;
             try
