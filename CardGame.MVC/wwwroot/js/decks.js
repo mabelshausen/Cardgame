@@ -1,9 +1,15 @@
 ﻿var ApiUri = "https://localhost:5001/api/decks/";
 
+var router = new VueRouter({
+    mode: 'history',
+    routes: [{ path: '/decks/index/:id' }]
+});
 var app = new Vue({
+    router,
     el: '#app',
     data: {
         message: "Please wait a moment.",
+        userId: null,
         decks: null,
         currentDeck: null,
         isReadOnly: true,
@@ -11,12 +17,17 @@ var app = new Vue({
     },
     created: function () {
         var self = this;
+        self.userId = parseInt(self.$route.params.id);
         self.fetchDecks();
     },
     methods: {
         fetchDecks: function () {
             self = this;
-            fetch(`${ApiUri}`)
+            var fetchUri = `${ApiUri}`;
+            if (!isNaN(self.userId)) {
+                fetchUri = `${ApiUri}byUserId/${self.userId}`;
+            };
+            fetch(fetchUri)
                 .then(res => res.json())
                 .then(function (res) {
                     res.forEach(function (deck) {
