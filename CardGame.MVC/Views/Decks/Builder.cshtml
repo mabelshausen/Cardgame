@@ -8,7 +8,11 @@
         <h3>{{message}}</h3>
         <nav>
             <ul class="list-group" v-if="currentDeck">
-                <li v-for="deckcard in currentDeck.deckCards" v-on:click="selectDeckCard(deckcard)" :class="getCardClass(deckcard)" style="cursor:pointer">
+                <li v-for="deckcard in currentDeck.deckCards" 
+                    v-if="!deckcard.lastCopyRemoved"
+                    v-on:click="selectDeckCard(deckcard)" 
+                    :class="getCardClass(deckcard)" 
+                    style="cursor:pointer">
                     <span>{{deckcard.amountOfCopies}}x {{deckcard.card.name}}</span>
                 </li>
             </ul>

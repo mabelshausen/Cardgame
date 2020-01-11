@@ -89,8 +89,10 @@ var app = new Vue({
             var isNew = true;
             self.currentDeck.deckCards.forEach(function (deckcard) {
                 if (deckcard.cardId === self.selectedCard.id) {
+                    deckcard.lastCopyRemoved = false;
                     deckcard.amountOfCopies++;
                     isNew = false;
+                    self.$forceUpdate();
                     return;
                 }
             });
@@ -112,7 +114,7 @@ var app = new Vue({
                 if (deckcard.cardId === self.selectedDeckCard.cardId) {
                     deckcard.amountOfCopies--;
                     if (deckcard.amountOfCopies <= 0) {
-                        self.currentDeck.deckCards.splice(i, 1);
+                        deckcard.lastCopyRemoved = true;
                     }
                     return;
                 }
@@ -135,6 +137,13 @@ var app = new Vue({
                     ajaxConfig.method = "POST";
 
                     let myRequest = new Request(`${ApiUri}DeckCards`, ajaxConfig);
+                    fetch(myRequest)
+                        .catch(err => console.error("There was an error: " + err));
+                }
+                else if (deckcard.lastCopyRemoved) {
+                    ajaxConfig.method = "DELETE";
+
+                    let myRequest = new Request(`${ApiUri}DeckCards/${deckcard.deckId}/${deckcard.cardId}`, ajaxConfig);
                     fetch(myRequest)
                         .catch(err => console.error("There was an error: " + err));
                 }
