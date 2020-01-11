@@ -83,6 +83,43 @@ var app = new Vue({
             if (card.isActive)
                 return "list-group-item active";
             return "list-group-item";
+        },
+        addCard: function () {
+            self = this;
+            var isNew = true;
+            self.currentDeck.deckCards.forEach(function (deckcard) {
+                if (deckcard.cardId === self.selectedCard.id) {
+                    deckcard.amountOfCopies++;
+                    isNew = false;
+                    return;
+                }
+            });
+            if (isNew) {
+                self.currentDeck.deckCards.push({
+                    "cardId": self.selectedCard.id,
+                    "deckId": self.currentDeck.id,
+                    "card": self.selectedCard,
+                    "amountOfCopies": 1,
+                    "isActive": false
+                });
+            }
+            self.isEdited = true;
+        },
+        removeCard: function () {
+            self = this;
+            self.currentDeck.deckCards.forEach(function (deckcard, i) {
+                if (deckcard.cardId === self.selectedDeckCard.cardId) {
+                    deckcard.amountOfCopies--;
+                    if (deckcard.amountOfCopies <= 0) {
+                        self.currentDeck.deckCards.splice(i, 1);
+                    }
+                    return;
+                }
+            });
+            self.isEdited = true;
+        },
+        save: function () {
+
         }
     }
 });

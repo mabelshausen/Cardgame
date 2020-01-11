@@ -9,7 +9,7 @@
         <nav>
             <ul class="list-group" v-if="currentDeck">
                 <li v-for="deckcard in currentDeck.deckCards" v-on:click="selectDeckCard(deckcard)" :class="getCardClass(deckcard)" style="cursor:pointer">
-                    <span>{{deckcard.card.name}}</span>
+                    <span>{{deckcard.amountOfCopies}}x {{deckcard.card.name}}</span>
                 </li>
             </ul>
         </nav>
