@@ -16,7 +16,7 @@ namespace CardGame.MVC.Controllers
             _userStateService = userStateService;
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index()
         {
             if (!_userStateService.UserState.IsAdmin)
             {
