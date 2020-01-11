@@ -64,7 +64,10 @@ var app = new Vue({
             self.isReadOnly = false;
             self.isEdit = isEdit;
             if (!isEdit) {
-                self.currentDeck = { "name": "", "deckCards": null };
+                self.currentDeck = { "name": "", "deckCards": null, "userId": self.userId };
+                if (isNan(self.currentDeck.userId)) {
+                    self.currentDeck.userId = null;
+                };
             }
         },
         save: function () {
