@@ -23,6 +23,11 @@ namespace CardGame.MVC.Controllers
                 return NotFound();
             }
 
+            if (!_userStateService.UserState.IsAdmin && id != _userStateService.UserState.Id)
+            {
+                return NotFound();
+            }
+
             return View();
         }
     }
