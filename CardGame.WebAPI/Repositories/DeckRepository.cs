@@ -57,5 +57,22 @@ namespace CardGame.WebAPI.Repositories
             }
             return deckCards;
         }
+
+        public async Task<DeckCards> Delete(int deckId, int cardId)
+        {
+            var entity = await _cardGameContext.Set<DeckCards>()
+                .Where(dc => dc.DeckId == deckId && dc.CardId == cardId)
+                .FirstOrDefaultAsync();
+
+            if (entity == null)
+            {
+                return null;
+            }
+
+            _cardGameContext.Set<DeckCards>().Remove(entity);
+            await _cardGameContext.SaveChangesAsync();
+
+            return entity;
+        }
     }
 }

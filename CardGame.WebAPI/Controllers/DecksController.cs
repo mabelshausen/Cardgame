@@ -71,5 +71,23 @@ namespace CardGame.WebAPI.Controllers
             }
             return Ok(updatedEntity);
         }
+
+        [HttpDelete]
+        [Route("DeckCards/{deckId}/{cardId}")]
+        public virtual async Task<IActionResult> Delete([FromRoute] int deckId,
+            [FromRoute] int cardId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            DeckCards deletedEntity = await _repository.Delete(deckId, cardId);
+            if (deletedEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(deletedEntity);
+        }
     }
 }
