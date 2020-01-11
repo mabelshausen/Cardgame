@@ -30,5 +30,15 @@ namespace CardGame.MVC.Controllers
 
             return View();
         }
+
+        public IActionResult Builder(int id)
+        {
+            if (!_userStateService.UserState.IsAdmin || _userStateService.UserState.Id == id)
+            {
+                return NotFound();
+            }
+
+            return View();
+        }
     }
 }
