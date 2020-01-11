@@ -1,7 +1,37 @@
 ﻿
 @{
-    ViewData["Title"] = "Builder";
+    ViewData["Title"] = "DeckBuilder";
 }
 
-<h1>Builder</h1>
+<article id="app" class="row">
+    <header class="col-md-4">
+        <h3>{{message}}</h3>
+        <nav>
+            <ul class="list-group" v-if="currentDeck">
+                <li v-for="deckcard in currentDeck.deckCards" v-on:click="selectDeckCard(deckcard)" :class="getCardClass(deckcard)" style="cursor:pointer">
+                    <span>{{deckcard.card.name}}</span>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="col-md-2">
+        <button v-on:click="removeCard()" v-if="deckCardSelected" class="btn btn-primary">Remove</button>
+        <button v-on:click="addCard()" v-if="cardSelected" class="btn btn-primary">Add</button>
+    </div>
+    <div class="col-md-4">
+        <h3>{{message2}}</h3>
+        <nav>
+            <ul class="list-group">
+                <li v-for="card in cards" v-on:click="selectCard(card)" :class="getCardClass(card)" style="cursor:pointer">
+                    <span>{{card.name}}</span>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</article>
 
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router"></script>
+    <script src="~/js/deckCards.js"></script>
+}
