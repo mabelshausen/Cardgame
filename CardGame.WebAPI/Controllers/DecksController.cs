@@ -31,5 +31,45 @@ namespace CardGame.WebAPI.Controllers
         {
             return Ok(await _repository.GetByIdWithCards(id));
         }
+
+        [HttpPost]
+        [Route("DeckCards")]
+        public virtual async Task<IActionResult> Post([FromBody] DeckCards deckCards)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            DeckCards createdEntity = await _repository.Add(deckCards);
+            if (createdEntity == null)
+            {
+                return NotFound();
+            }
+            return CreatedAtAction(nameof(Get), deckCards);
+        }
+
+        [HttpPut]
+        [Route("DeckCards/{deckId}/{cardId}")]
+        public virtual async Task<IActionResult> Put([FromRoute] int deckId,
+            [FromRoute] int cardId,
+            [FromBody] DeckCards deckCards)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (deckId != deckCards.DeckId || cardId != deckCards.CardId)
+            {
+                return BadRequest();
+            }
+
+            DeckCards updatedEntity = await _repository.Update(deckCards);
+            if (updatedEntity == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedEntity);
+        }
     }
 }

@@ -28,5 +28,34 @@ namespace CardGame.WebAPI.Repositories
                 .ThenInclude(dc => dc.Card)
                 .FirstOrDefaultAsync(e => e.Id == id && !e.IsDeleted);
         }
+
+        public async Task<DeckCards> Add(DeckCards deckCards)
+        {
+            deckCards.Card = null;
+            _cardGameContext.Set<DeckCards>().Add(deckCards);
+            try
+            {
+                await _cardGameContext.SaveChangesAsync();
+            }
+            catch
+            {
+                return null;
+            }
+            return deckCards;
+        }
+
+        public virtual async Task<DeckCards> Update(DeckCards deckCards)
+        {
+            _cardGameContext.Entry(deckCards).State = EntityState.Modified;
+            try
+            {
+                await _cardGameContext.SaveChangesAsync();
+            }
+            catch
+            {
+                return null;
+            }
+            return deckCards;
+        }
     }
 }
