@@ -100,7 +100,8 @@ var app = new Vue({
                     "deckId": self.currentDeck.id,
                     "card": self.selectedCard,
                     "amountOfCopies": 1,
-                    "isActive": false
+                    "isActive": false,
+                    "isNew": true
                 });
             }
             self.isEdited = true;
@@ -119,7 +120,31 @@ var app = new Vue({
             self.isEdited = true;
         },
         save: function () {
+            var self = this;
 
+            self.currentDeck.deckCards.forEach(function (deckcard) {
+                var ajaxHeaders = new Headers();
+                ajaxHeaders.append("Content-Type", "application/json");
+                var ajaxConfig = {
+                    method: "PUT",
+                    body: JSON.stringify(deckcard),
+                    headers: ajaxHeaders
+                };
+
+                if (deckcard.isNew) {
+                    ajaxConfig.method = "POST";
+
+                    let myRequest = new Request(`${ApiUri}DeckCards`, ajaxConfig);
+                    fetch(myRequest)
+                        .catch(err => console.error("There was an error: " + err));
+                }
+                else {
+                    let myRequest = new Request(`${ApiUri}DeckCards/${deckcard.deckId}/${deckcard.cardId}`, ajaxConfig);
+                    fetch(myRequest)
+                        .catch(err => console.error("There was an error: " + err));
+                }
+            });
+            self.isEdited = false;
         }
     }
 });
